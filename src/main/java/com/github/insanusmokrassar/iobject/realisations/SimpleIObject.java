@@ -1,15 +1,18 @@
 package com.github.insanusmokrassar.iobject.realisations;
 
+import com.github.insanusmokrassar.iobject.exceptions.InputException;
+import com.github.insanusmokrassar.iobject.exceptions.OutputException;
+import com.github.insanusmokrassar.iobject.interfaces.CommonIObject;
 import com.github.insanusmokrassar.iobject.interfaces.IObject;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class SimpleIObject implements IObject {
-    protected Map<String, Object> objects;
+public class SimpleIObject<T> implements IObject<T> {
+    protected Map<String, T> objects;
 
-    public SimpleIObject(Map<String, Object> from) {
+    public SimpleIObject(Map<String, T> from) {
         objects = new HashMap<>(from);
     }
 
@@ -18,19 +21,24 @@ public class SimpleIObject implements IObject {
     }
 
     @Override
-    public Boolean put(String key, Object value) {
+    public void put(String key, T value) throws OutputException {
         objects.put(key, value);
-        return true;
     }
 
     @Override
-    public Object get(String key) {
-        return objects.get(key);
+    public T get(String key) throws InputException {
+        T object = objects.get(key);
+        if (object == null) {
+            throw new InputException("Can't return value - value from key(" + key + ") - is null");
+        }
+        return object;
     }
 
     @Override
-    public Boolean remove(String key) {
-        return objects.remove(key) != null;
+    public void remove(String key) throws OutputException{
+        if (objects.remove(key) == null) {
+            throw new OutputException("Can't remove value for key(" + key + ")");
+        }
     }
 
     @Override
