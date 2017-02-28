@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class SimpleIObject<T> implements IObject<T> {
-    protected Map<String, T> objects;
+    protected final Map<String, T> objects;
 
     public SimpleIObject(Map<String, T> from) {
         objects = new HashMap<>(from);
