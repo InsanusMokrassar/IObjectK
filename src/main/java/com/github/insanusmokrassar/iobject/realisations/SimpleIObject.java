@@ -1,8 +1,7 @@
 package com.github.insanusmokrassar.iobject.realisations;
 
-import com.github.insanusmokrassar.iobject.exceptions.InputException;
-import com.github.insanusmokrassar.iobject.exceptions.OutputException;
-import com.github.insanusmokrassar.iobject.interfaces.CommonIObject;
+import com.github.insanusmokrassar.iobject.exceptions.ReadException;
+import com.github.insanusmokrassar.iobject.exceptions.WriteException;
 import com.github.insanusmokrassar.iobject.interfaces.IObject;
 
 import java.util.HashMap;
@@ -16,33 +15,52 @@ public class SimpleIObject<T> implements IObject<T> {
         objects = new HashMap<>(from);
     }
 
+    public SimpleIObject(IObject<T> from) {
+        this();
+        if (from == null) {
+            return;
+        }
+        for (String key : from.keys()) {
+            try {
+                objects.put(key, from.get(key));
+            } catch (ReadException e) {
+                //TODO: add exception handling
+            }
+        }
+    }
+
     public SimpleIObject() {
         objects = new HashMap<>();
     }
 
     @Override
-    public void put(String key, T value) throws OutputException {
+    public void put(String key, T value) throws WriteException {
         objects.put(key, value);
     }
 
     @Override
-    public T get(String key) throws InputException {
+    public T get(String key) throws ReadException {
         T object = objects.get(key);
         if (object == null) {
-            throw new InputException("Can't return value - value from key(" + key + ") - is null");
+            throw new ReadException("Can't return value - value from key(" + key + ") - is null");
         }
         return object;
     }
 
     @Override
-    public void remove(String key) throws OutputException{
+    public void remove(String key) throws WriteException {
         if (objects.remove(key) == null) {
-            throw new OutputException("Can't remove value for key(" + key + ")");
+            throw new WriteException("Can't remove value for key(" + key + ")");
         }
     }
 
     @Override
     public Set<String> keys() {
         return objects.keySet();
+    }
+
+    @Override
+    public String toString() {
+        return objects.toString();
     }
 }

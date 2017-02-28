@@ -1,6 +1,6 @@
 package com.github.insanusmokrassar.iobject.interfaces;
 
-import com.github.insanusmokrassar.iobject.exceptions.InputException;
+import com.github.insanusmokrassar.iobject.exceptions.ReadException;
 
 import java.util.Set;
 
@@ -13,9 +13,9 @@ public interface IInputObject<KeyType, ValueType>{
     /**
      * @param key Key for getting data
      * @return Object
-     * @throws InputException Throws when object not found
+     * @throws ReadException Throws when object not found
      */
-    ValueType get(KeyType key) throws InputException;
+    ValueType get(KeyType key) throws ReadException;
 
     /**
      * @return Set of the keys. Can't be null but can be empty
