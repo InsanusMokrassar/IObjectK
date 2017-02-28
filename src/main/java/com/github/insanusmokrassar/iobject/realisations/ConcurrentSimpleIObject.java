@@ -27,6 +27,11 @@ public class ConcurrentSimpleIObject<T> extends SimpleIObject<T>{
     }
 
     @Override
+    synchronized public void putAll(Map<String, T> toPutMap) throws WriteException {
+        super.putAll(toPutMap);
+    }
+
+    @Override
     synchronized public T get(String key) throws ReadException {
         return super.get(key);
     }

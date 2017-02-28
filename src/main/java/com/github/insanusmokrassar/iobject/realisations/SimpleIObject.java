@@ -39,6 +39,11 @@ public class SimpleIObject<T> implements IObject<T> {
     }
 
     @Override
+    public void putAll(Map<String, T> toPutMap) throws WriteException {
+        objects.putAll(toPutMap);
+    }
+
+    @Override
     public T get(String key) throws ReadException {
         T object = objects.get(key);
         if (object == null) {
