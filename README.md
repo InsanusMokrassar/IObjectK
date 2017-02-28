@@ -1,6 +1,7 @@
 # IObject
 ## What for?
 This repository was created for give an opportunity to simplify using objects such as:
+
 1. JSON
 2. Map/HashMap
 3. Databases (simple)
