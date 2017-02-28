@@ -3,9 +3,11 @@
 This repository was created for give an opportunity to simplify using objects such as:
 
 1. JSON
-2. Map/HashMap
+2. Map/HashMap 
 3. Databases (simple)
-4. Common databases
+4. Some web/local databases via sockets
+5. Some web/local connections
+6. Common databases
 
 ### JSON and Map/HashMap
 JSON - format of data such as
