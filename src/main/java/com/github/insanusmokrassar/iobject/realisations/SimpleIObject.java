@@ -68,4 +68,9 @@ public class SimpleIObject<T> implements IObject<T> {
     public String toString() {
         return objects.toString();
     }
+
+    @Override
+    protected SimpleIObject<T> clone() throws CloneNotSupportedException {
+        return new SimpleIObject<>(this);
+    }
 }

@@ -45,4 +45,9 @@ public class ConcurrentSimpleIObject<T> extends SimpleIObject<T>{
     synchronized public Set<String> keys() {
         return super.keys();
     }
+
+    @Override
+    protected SimpleIObject<T> clone() throws CloneNotSupportedException {
+        return new ConcurrentSimpleIObject<>(this);
+    }
 }
