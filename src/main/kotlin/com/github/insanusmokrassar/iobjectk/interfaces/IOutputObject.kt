@@ -33,3 +33,11 @@ interface IOutputObject<KeyType, ValueType> {
     @Throws(WriteException::class)
     fun remove(key: KeyType)
 }
+
+fun <K, V>IOutputObject<K, V>.addAll(vararg objects: IInputObject<K, V>) {
+    for (current in objects) {
+        for (key in current.keys()) {
+            put(key, current.get(key))
+        }
+    }
+}
