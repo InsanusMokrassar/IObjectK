@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.insanusmokrassar</groupId>
-    <artifactId>iobjectk</artifactId>
+    <artifactId>IObjectK</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>iobjectk</name>
+    <name>IObjectK</name>
     <description>iobjectk - is simple present of information</description>
     <url>https://insanusmokrassar.github.io/iobjectk/</url>
     <developers>
