@@ -9,9 +9,9 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>IObjectK</name>
-    <description>iobjectk - is simple present of information</description>
-    <url>https://insanusmokrassar.github.io/iobjectk/</url>
+    <name>${project.artifactId}</name>
+    <description>${project.artifactId}</description>
+    <url>https://insanusmokrassar.github.io/${project.artifactId}/</url>
     <developers>
         <developer>
             <name>Ovsyannikov Alexey</name>
@@ -21,7 +21,7 @@
     <licenses>
         <license>
             <name>MIT</name>
-            <url>https://github.com/insanusmokrassar/iobjectk/blob/master/LICENSE</url>
+            <url>https://github.com/insanusmokrassar/${project.artifactId}/blob/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -35,6 +35,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.1.2-4</kotlin.version>
         <dokka.version>0.9.15</dokka.version>
+        <gpg.passphraseServerId>bintray-insanusmokrassar-StandardRepository</gpg.passphraseServerId>
+        <main.class>com.github.insanusmokrassar.iobjectk.ExampleKt</main.class>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
     <pluginRepositories>
@@ -98,19 +102,30 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--Plugins for compiling-->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.6</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.github.insanusmokrassar.iobjectk.ExampleKt</mainClass>
+                            <mainClass>${main.class}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+           </plugin>
             <plugin>
                 <groupId>org.jetbrains.dokka</groupId>
                 <artifactId>dokka-maven-plugin</artifactId>
@@ -129,6 +144,19 @@
                         <dir>${project.build.sourceDirectory}</dir>
                     </sourceDirectories>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -155,7 +183,7 @@
         <repository>
             <id>bintray-insanusmokrassar-StandardRepository</id>
             <name>insanusmokrassar-StandardRepository</name>
-            <url>https://api.bintray.com/maven/insanusmokrassar/StandardRepository/IObjectK/;publish=1</url>
+            <url>https://api.bintray.com/maven/insanusmokrassar/StandardRepository/${project.artifactId}/;publish=1</url>
         </repository>
     </distributionManagement>
 </project>
