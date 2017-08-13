@@ -88,3 +88,9 @@ public class ExampleClass {
     }
 }
 ```
+
+## ReleaseNotes
+
+### 1.1
+
+Added [SimpleTypedIObject](src/main/kotlin/com/github/insanusmokrassar/iobjectk/realisations/SimpleTypedIObject.kt)
