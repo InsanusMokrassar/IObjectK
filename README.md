@@ -38,8 +38,8 @@ For common and complicated databases we have [CommonIObject](src/main/java/com/g
 
 This interface can be used as:
 ```java
-import com.github.insanusmokrassar.iobjectk.interfaces.CommonIObject;
-import com.github.insanusmokrassar.iobjectk.exceptions.ReadException;
+import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject;
+import com.github.insanusmokrassar.IObjectK.exceptions.ReadException;
 
 public class SomeDatabaseStream implements CommonIObject<YourCustomClassAsChooser, Object> {
     //Body of class
@@ -75,8 +75,8 @@ And all heirs of [CommonIObject](src/main/java/com/github/insanusmokrassar/iobje
 
 For example, if you have some user interface that must only read from database, you can do that as:
 ```java
-import com.github.insanusmokrassar.iobjectk.interfaces.IInputObject;
-import com.github.insanusmokrassar.iobjectk.exceptions.ReadException;
+import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject;
+import com.github.insanusmokrassar.IObjectK.exceptions.ReadException;
 
 public class ExampleClass {
     /**
@@ -93,4 +93,4 @@ public class ExampleClass {
 
 ### 1.1
 
-Added [SimpleTypedIObject](src/main/kotlin/com/github/insanusmokrassar/iobjectk/realisations/SimpleTypedIObject.kt)
+Added [SimpleTypedIObject](src/main/kotlin/com/github/insanusmokrassar/IObjectK/realisations/SimpleTypedIObject.kt)

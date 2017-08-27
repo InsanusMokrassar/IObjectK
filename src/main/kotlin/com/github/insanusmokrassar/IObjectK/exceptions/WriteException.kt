@@ -1,4 +1,4 @@
-package com.github.insanusmokrassar.iobjectk.exceptions
+package com.github.insanusmokrassar.IObjectK.exceptions
 
 import java.io.IOException
 

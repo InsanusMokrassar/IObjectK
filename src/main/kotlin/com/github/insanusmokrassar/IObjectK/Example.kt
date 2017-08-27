@@ -1,4 +1,4 @@
-package com.github.insanusmokrassar.iobjectk
+package com.github.insanusmokrassar.IObjectK
 
 import java.util.*
 

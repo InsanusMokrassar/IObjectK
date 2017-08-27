@@ -1,6 +1,6 @@
-package com.github.insanusmokrassar.iobjectk.interfaces
+package com.github.insanusmokrassar.IObjectK.interfaces
 
-import com.github.insanusmokrassar.iobjectk.exceptions.WriteException
+import com.github.insanusmokrassar.IObjectK.exceptions.WriteException
 
 interface IOutputObject<KeyType, ValueType> {
 

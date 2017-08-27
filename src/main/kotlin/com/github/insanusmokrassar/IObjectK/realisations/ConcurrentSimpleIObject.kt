@@ -1,8 +1,8 @@
-package com.github.insanusmokrassar.iobjectk.realisations
+package com.github.insanusmokrassar.IObjectK.realisations
 
-import com.github.insanusmokrassar.iobjectk.exceptions.ReadException
-import com.github.insanusmokrassar.iobjectk.exceptions.WriteException
-import com.github.insanusmokrassar.iobjectk.interfaces.IObject
+import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
+import com.github.insanusmokrassar.IObjectK.exceptions.WriteException
+import com.github.insanusmokrassar.IObjectK.interfaces.IObject
 
 class ConcurrentSimpleIObject : SimpleIObject {
 
