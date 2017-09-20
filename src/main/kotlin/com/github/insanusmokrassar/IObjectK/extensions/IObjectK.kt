@@ -15,11 +15,6 @@ fun IObject<Any>.put(path: List<String>, value: Any) {
     var currentParent: Any = this
     path.forEach {
         if (path.last() == it) {
-            currentParent = when (currentParent) {
-                is List<*> -> (currentParent as List<*>)[it.toInt()]!!
-                else -> (currentParent as IObject<Any>).get(it)
-            }
-        } else {
             when (currentParent) {
                 is List<*> -> {
                     (currentParent as? MutableList<Any>)?.let {
@@ -32,6 +27,11 @@ fun IObject<Any>.put(path: List<String>, value: Any) {
                     }
                 }
                 else -> (currentParent as IObject<Any>).put(it, value)
+            }
+        } else {
+            currentParent = when (currentParent) {
+                is List<*> -> (currentParent as List<*>)[it.toInt()]!!
+                else -> (currentParent as IObject<Any>).get(it)
             }
         }
     }
