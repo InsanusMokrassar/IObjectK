@@ -6,11 +6,11 @@ import com.github.insanusmokrassar.IObjectK.interfaces.IObject
 
 class ConcurrentSimpleIObject : SimpleIObject {
 
-    constructor(from: Map<String, Any>) : super(from) {}
+    constructor(from: Map<String, Any>) : super(from)
 
-    constructor(from: IObject<Any>) : super(from) {}
+    constructor(from: IObject<Any>) : super(from)
 
-    constructor() : super() {}
+    constructor() : super()
 
     @Synchronized @Throws(WriteException::class)
     override fun put(key: String, value: Any) {
