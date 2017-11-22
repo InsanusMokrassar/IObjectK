@@ -1,4 +1,26 @@
 # IObject
+
+## How to import?
+
+```xml
+<dependency>
+    <groupId>com.github.insanusmokrassar</groupId>
+    <artifactId>IObjectK</artifactId>
+    <version>1.5</version>
+</dependency>
+```
+
+```
+compile 'com.github.insanusmokrassar:IObjectK:1.5'
+```
+
+Optionally, you can replace version by one of next:
+
+* 1.1
+* 1.3
+* 1.4
+* 1.5
+
 ## What for?
 This repository was created for give an opportunity to simplify using objects such as:
 
@@ -88,9 +110,3 @@ public class ExampleClass {
     }
 }
 ```
-
-## ReleaseNotes
-
-### 1.1
-
-Added [SimpleTypedIObject](src/main/kotlin/com/github/insanusmokrassar/IObjectK/realisations/SimpleTypedIObject.kt)
