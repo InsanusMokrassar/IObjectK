@@ -20,3 +20,8 @@ and reorganize dependency hierarchy (watch commit).
 * Make ConcurrentSimpleIObject -> [ConcurrentSimpleCommonIObject](src/main/kotlin/com/github/insanusmokrassar/IObjectK/realisations/ConcurrentSimpleCommonIObject.kt)
 to be useful in most cases.
 * Return IObject interface status.
+
+## v1.6-experimental
+
+Experimental version with replaced IObject interfaces by maps. Thinking, 
+that we can use Map/MutableMap for safety when it need.
