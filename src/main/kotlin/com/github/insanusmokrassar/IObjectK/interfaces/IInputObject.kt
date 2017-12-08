@@ -5,6 +5,12 @@ import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 interface IInputObject<KeyType, ValueType> {
 
     /**
+     * Return sum of records on object
+     */
+    val size: Int
+        get() = keys().size
+
+    /**
      * @param key Key for getting data
      * @return Object or null
      */

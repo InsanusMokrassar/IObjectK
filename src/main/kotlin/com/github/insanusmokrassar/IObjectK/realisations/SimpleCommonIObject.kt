@@ -8,6 +8,9 @@ import java.util.HashMap
 open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
     protected val objects: MutableMap<K, V>
 
+    override val size: Int
+        get() = objects.size
+
     constructor(from: Map<K, V>) {
         objects = HashMap(from)
     }
