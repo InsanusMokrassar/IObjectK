@@ -20,7 +20,6 @@ Optionally, you can replace version by one of next:
 * 1.3
 * 1.4
 * 1.5
-* 1.6-experimental
 
 ## What for?
 This repository was created for give an opportunity to simplify using objects such as:
