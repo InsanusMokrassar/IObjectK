@@ -1,7 +1,7 @@
 package com.github.insanusmokrassar.IObjectK.extensions
 
 import com.github.insanusmokrassar.IObjectK.interfaces.IObject
-import com.github.insanusmokrassar.IObjectK.realisations.SimpleCommonIObject
+
 
 val lastIdentifier = "last"
 
@@ -11,7 +11,7 @@ fun String.toPath(): List<String> {
     return this.split(delimiter).filter { it.isNotEmpty() }
 }
 
-fun IObject<Any>.put(path: Iterable<String>, value: Any) {
+fun IObject<Any>.put(path: List<String>, value: Any) {
     var currentParent: Any = this
     path.forEach {
         if (path.last() == it) {
@@ -30,40 +30,32 @@ fun IObject<Any>.put(path: Iterable<String>, value: Any) {
             }
         } else {
             currentParent = when (currentParent) {
-                is List<*> ->
-                    (currentParent as List<*>)[it.toInt()]
-                            ?: throw IllegalArgumentException("Have no element with number $it")
-                is IObject<*> -> (currentParent as IObject<Any>).getTyped(it) ?: {
-                    val current = currentParent as IObject<Any>
-                    val futureCurrent = SimpleCommonIObject<String, Any>()
-                    current.put(it, futureCurrent)
-                    futureCurrent
-                }()
-                else -> throw IllegalArgumentException("Illegal type of object for key \"$it\" and current $currentParent")
+                is List<*> -> (currentParent as List<*>)[it.toInt()]!!
+                else -> (currentParent as IObject<Any>).get(it)
             }
         }
     }
 }
 
-fun <T : Any> IObject<T>.get(path: Iterable<String>): T? {
+fun IObject<Any>.get(path: List<String>): Any {
     var current: Any = this
     path.forEach {
         current = when (current) {
-            is List<*> -> (current as List<*>)[it.toInt()]
-            else -> (current as IObject<Any>).getTyped(it)
-        } ?: return null
+            is List<*> -> (current as List<*>)[it.toInt()]!!
+            else -> (current as IObject<Any>).get(it)
+        }
     }
-    return current as? T
+    return current
 }
 
-fun IObject<Any>.cut(path: Iterable<String>): Any? {
+fun IObject<Any>.cut(path: List<String>): Any {
     var current: Any = this
     path.forEach {
         val parent = current
         current = when (current) {
-            is List<*> -> (current as List<*>)[it.toInt()]
-            else -> (current as IObject<Any>).getTyped(it)
-        } ?: return null
+            is List<*> -> (current as List<*>)[it.toInt()]!!
+            else -> (current as IObject<Any>).get(it)
+        }
         if (path.last() == it) {
             when (parent) {
                 is MutableList<*> -> (parent as MutableList<Any>).remove(it.toInt())
