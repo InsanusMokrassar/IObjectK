@@ -2,7 +2,7 @@ package com.github.insanusmokrassar.IObjectK.interfaces
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 
-interface IInputObject<KeyType, ValueType> {
+interface IInputObject<K, in V> {
 
     /**
      * Return sum of records on object
@@ -15,14 +15,20 @@ interface IInputObject<KeyType, ValueType> {
      * @return Object or null
      */
     @Throws(ReadException::class)
-    fun <T : ValueType>get(key : KeyType) : T
+    fun <T: V> get(key : K) : T
 
     /**
      * @return Set of the keys. Can't be null but can be empty
      */
-    fun keys() : Set<KeyType>
+    fun keys() : Set<K>
 }
 
 fun <K, V> IInputObject<K, V>.has(key: K): Boolean {
     return keys().contains(key)
+}
+
+fun <K, V> IInputObject<K, V>.contain(other: IInputObject<K, V>): Boolean {
+    return keys().containsAll(other.keys()) && other.keys().firstOrNull {
+        other.get<V>(it) == get<V>(it)
+    } == null
 }

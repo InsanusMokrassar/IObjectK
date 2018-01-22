@@ -2,7 +2,7 @@ package com.github.insanusmokrassar.IObjectK.interfaces
 
 import com.github.insanusmokrassar.IObjectK.exceptions.WriteException
 
-interface IOutputObject<KeyType, ValueType> {
+interface IOutputObject<K, in V> {
 
     /**
      * Try to put value with key value
@@ -13,7 +13,7 @@ interface IOutputObject<KeyType, ValueType> {
      * @throws WriteException Throws when can't set this pair
      */
     @Throws(WriteException::class)
-    fun put(key: KeyType, value: ValueType)
+    fun put(key: K, value: V)
 
     /**
      * Try to put value with key value
@@ -22,7 +22,7 @@ interface IOutputObject<KeyType, ValueType> {
      * @throws WriteException Throws when can't set this pair
      */
     @Throws(WriteException::class)
-    fun putAll(toPutMap: Map<KeyType, ValueType>)
+    fun putAll(toPutMap: Map<K, V>)
 
     /**
      * Try to remove value using key
@@ -31,10 +31,10 @@ interface IOutputObject<KeyType, ValueType> {
      * @throws WriteException Throws when can't remove this value
      */
     @Throws(WriteException::class)
-    fun remove(key: KeyType)
+    fun remove(key: K)
 }
 
-fun <K, V>IOutputObject<K, V>.addAll(vararg objects: IInputObject<K, V>) {
+fun <K, V>IOutputObject<K, V>.putAll(vararg objects: IInputObject<K, V>) {
     for (current in objects) {
         for (key in current.keys()) {
             put(key, current.get(key))

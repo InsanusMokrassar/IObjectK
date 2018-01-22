@@ -1,3 +1,3 @@
 package com.github.insanusmokrassar.IObjectK.interfaces
 
-interface CommonIObject<KeyType, ValueType> : IInputObject<KeyType, ValueType>, IOutputObject<KeyType, ValueType>
+interface CommonIObject<K, in V> : IInputObject<K, V>, IOutputObject<K, V>

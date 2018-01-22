@@ -17,7 +17,7 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
 
     constructor(from: CommonIObject<K, V>) : this() {
         for (key in from.keys()) {
-            objects.put(key, from.get(key))
+            objects[key] = from.get(key)
         }
     }
 
@@ -27,7 +27,7 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
 
     @Throws(WriteException::class)
     override fun put(key: K, value: V) {
-        objects.put(key, value)
+        objects[key] = value
     }
 
     @Throws(WriteException::class)

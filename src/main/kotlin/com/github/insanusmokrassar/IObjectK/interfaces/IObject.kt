@@ -1,3 +1,3 @@
 package com.github.insanusmokrassar.IObjectK.interfaces
 
-interface IObject<T>: CommonIObject<String, T>
+interface IObject<in T>: CommonIObject<String, T>

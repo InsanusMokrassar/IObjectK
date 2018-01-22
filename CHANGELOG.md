@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.1
+## v1.1
 
 Added [SimpleTypedIObject](src/main/kotlin/com/github/insanusmokrassar/IObjectK/realisations/SimpleTypedIObject.kt)
 
@@ -30,3 +30,11 @@ you can get MutableMap which will map actions to your mutable object.
 * Add [`val size` to IInputObject](src/main/kotlin/com/github/insanusmokrassar/IObjectK/interfaces/IInputObject.kt). Now
 this interface have default value, but strongly recommended to override this val
 in your objects. In future versions default value will be removed.
+
+## v1.7
+
+* Update version of Kotlin 1.2.10 -> 1.2.20
+* Add [IInputObject<K, V>#contain](src/main/kotlin/com/github/insanusmokrassar/IObjectK/interfaces/IInputObject.kt#L30)
+extension
+* Rename [IOutputObject<K, V>#addAll -> IOutputObject<K, V>#putAll](src/main/kotlin/com/github/insanusmokrassar/IObjectK/interfaces/IOutputObject.kt#L37)
+
