@@ -6,12 +6,12 @@
 <dependency>
     <groupId>com.github.insanusmokrassar</groupId>
     <artifactId>IObjectK</artifactId>
-    <version>1.5</version>
+    <version>1.7</version>
 </dependency>
 ```
 
 ```
-compile 'com.github.insanusmokrassar:IObjectK:1.5'
+compile 'com.github.insanusmokrassar:IObjectK:1.7'
 ```
 
 Optionally, you can replace version by one of next:
@@ -21,6 +21,7 @@ Optionally, you can replace version by one of next:
 * 1.4
 * 1.5
 * 1.6
+* 1.7
 
 ## What for?
 This repository was created for give an opportunity to simplify using objects such as:
