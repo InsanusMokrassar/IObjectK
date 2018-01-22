@@ -13,7 +13,19 @@ interface IOutputObject<K, in V> {
      * @throws WriteException Throws when can't set this pair
      */
     @Throws(WriteException::class)
-    fun put(key: K, value: V)
+    @Deprecated("This method will be remove in near time", ReplaceWith("set"))
+    fun put(key: K, value: V) = set(key, value)
+
+    /**
+     * Try to put value with key value
+     * @param key Key to set
+     * *
+     * @param value Value to set
+     * *
+     * @throws WriteException Throws when can't set this pair
+     */
+    @Throws(WriteException::class)
+    operator fun set(key: K, value: V)
 
     /**
      * Try to put value with key value
@@ -32,12 +44,4 @@ interface IOutputObject<K, in V> {
      */
     @Throws(WriteException::class)
     fun remove(key: K)
-}
-
-fun <K, V>IOutputObject<K, V>.putAll(vararg objects: IInputObject<K, V>) {
-    for (current in objects) {
-        for (key in current.keys()) {
-            put(key, current.get(key))
-        }
-    }
 }

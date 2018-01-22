@@ -38,3 +38,12 @@ in your objects. In future versions default value will be removed.
 extension
 * Rename [IOutputObject<K, V>#addAll -> IOutputObject<K, V>#putAll](src/main/kotlin/com/github/insanusmokrassar/IObjectK/interfaces/IOutputObject.kt#L37)
 
+## v1.8
+
+* Add [operators (+, +=, -, -=, in)](src/main/kotlin/com/github/insanusmokrassar/IObjectK/utils/Operators.kt)
+* Fix behaviour of `SimpleIObject` for null set values
+* Replace `put` by `set`. Now `put` method is deprecated and replaced by `put` (`[]=`) (
+[link](src/main/kotlin/com/github/insanusmokrassar/IObjectK/interfaces/IOutputObject.kt#L28))
+* `IInputObject` [now is `Iterable<Pair<K, V>>`](src/main/kotlin/com/github/insanusmokrassar/IObjectK/interfaces/IInputObject.kt#L6).
+You can use [StandardIInputObjectIterator](src/main/kotlin/com/github/insanusmokrassar/IObjectK/realisations/StandardIInputObjectIterator.kt)
+if you need not some special extends.

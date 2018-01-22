@@ -23,7 +23,7 @@ class ConcurrentSimpleCommonIObject<K, V> : SimpleCommonIObject<K, V> {
     }
 
     @Synchronized @Throws(ReadException::class)
-    override operator fun <T : V>get(key: K): T {
+    override operator fun <T: V> get(key: K): T {
         return super.get(key)
     }
 

@@ -3,6 +3,7 @@ package com.github.insanusmokrassar.IObjectK.realisations
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 import com.github.insanusmokrassar.IObjectK.exceptions.WriteException
 import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject
+import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
 import java.util.HashMap
 
 open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
@@ -15,7 +16,7 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
         objects = HashMap(from)
     }
 
-    constructor(from: CommonIObject<K, V>) : this() {
+    constructor(from: IInputObject<K, V>) : this() {
         for (key in from.keys()) {
             objects[key] = from.get(key)
         }
@@ -26,13 +27,17 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
     }
 
     @Throws(WriteException::class)
-    override fun put(key: K, value: V) {
-        objects[key] = value
+    override fun set(key: K, value: V) {
+        value ?.let {
+            objects[key] = it
+        } ?: objects.remove(key)
     }
 
     @Throws(WriteException::class)
     override fun putAll(toPutMap: Map<K, V>) {
-        objects.putAll(toPutMap)
+        toPutMap.forEach {
+            set(it.key, it.value)
+        }
     }
 
     @Throws(ReadException::class)
@@ -48,11 +53,9 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
         }
     }
 
-    override fun keys(): Set<K> {
-        return objects.keys
-    }
+    override fun keys(): Set<K> = objects.keys
 
-    override fun toString(): String {
-        return objects.toString()
-    }
+    override fun iterator(): Iterator<Pair<K, V>> = StandardIInputObjectIterator(this)
+
+    override fun toString(): String = objects.toString()
 }

@@ -1,8 +1,9 @@
 package com.github.insanusmokrassar.IObjectK.interfaces
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
+import com.github.insanusmokrassar.IObjectK.utils.contains
 
-interface IInputObject<K, in V> {
+interface IInputObject<K, V> : Iterable<Pair<K, V>> {
 
     /**
      * Return sum of records on object
@@ -15,7 +16,7 @@ interface IInputObject<K, in V> {
      * @return Object or null
      */
     @Throws(ReadException::class)
-    fun <T: V> get(key : K) : T
+    operator fun <T: V> get(key : K) : T
 
     /**
      * @return Set of the keys. Can't be null but can be empty
@@ -27,8 +28,6 @@ fun <K, V> IInputObject<K, V>.has(key: K): Boolean {
     return keys().contains(key)
 }
 
-fun <K, V> IInputObject<K, V>.contain(other: IInputObject<K, V>): Boolean {
-    return keys().containsAll(other.keys()) && other.keys().firstOrNull {
-        other.get<V>(it) == get<V>(it)
-    } == null
-}
+@Deprecated("This method was replaced and will be remover in near versions", ReplaceWith("contains"))
+fun <K, V> IInputObject<K, V>.contain(other: IInputObject<K, V>): Boolean = contains(other)
+
