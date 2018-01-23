@@ -55,7 +55,5 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
 
     override fun keys(): Set<K> = objects.keys
 
-    override fun iterator(): Iterator<Pair<K, V>> = StandardIInputObjectIterator(this)
-
     override fun toString(): String = objects.toString()
 }

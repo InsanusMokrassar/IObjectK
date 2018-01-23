@@ -3,7 +3,7 @@ package com.github.insanusmokrassar.IObjectK.interfaces
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 import com.github.insanusmokrassar.IObjectK.utils.contains
 
-interface IInputObject<K, V> : Iterable<Pair<K, V>> {
+interface IInputObject<K, V> {
 
     /**
      * Return sum of records on object
