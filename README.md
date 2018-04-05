@@ -2,19 +2,31 @@
 
 ## How to import?
 
+### Maven
+
 ```xml
 <dependency>
     <groupId>com.github.insanusmokrassar</groupId>
     <artifactId>IObjectK</artifactId>
-    <version>1.9</version>
+    <version>1.9.2</version>
 </dependency>
 ```
 
+### Gradle
+
 ```
-compile 'com.github.insanusmokrassar:IObjectK:1.9'
+implementation 'com.github.insanusmokrassar:IObjectK:1.9.2'
 ```
 
-Optionally, you can replace version by one of next:
+### Old Gradle
+
+```
+compile 'com.github.insanusmokrassar:IObjectK:1.9.2'
+```
+
+### Versions
+
+Available versions:
 
 * 1.1
 * 1.3
