@@ -86,18 +86,18 @@ private fun CommonIObject<String, in Any>.remap(
         key: String,
         sourceIObject: IObject<Any>,
         destObject: CommonIObject<String, Any>
-) {
+): Boolean {
     val rule = get<String>(key)// "keyToPut": "path/to/get/field"
-    val value = rule.split(delimiter).let {
-        try {
-            sourceIObject.get(it)
+    rule.split(delimiter).let {
+        return try {
+            destObject[key] = sourceIObject.get(it)
+            true
         } catch (e: ReadException) { // object by key in source object was not found
-            return
+            false
         } catch (e: IndexOutOfBoundsException) { // object by key in array of source object was not found
-            return
+            false
         }
     }
-    destObject[key] = value
 }
 
 /**
@@ -138,11 +138,18 @@ fun CommonIObject<String, in Any>.remap(
             } catch (e: ReadException) {
                 try {
                     val rules = get<List<String>>(key)// think that it is array of keys in source object
-                    remap(
-                            rules.joinToString(delimiter),
-                            sourceObject,
-                            destObject
-                    )
+                    val iterator = rules.iterator()
+                    while (iterator.hasNext()) {
+                        val ruleKey = iterator.next()
+                        val remapResult: Boolean = remap(
+                                ruleKey,
+                                sourceObject,
+                                destObject
+                        )
+                        if (remapResult) {
+                            return
+                        }
+                    }
                 } catch (e: ReadException) {
                     Logger.getGlobal().warning("Can't remap key $key of $this")
                 }
