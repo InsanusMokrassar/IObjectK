@@ -52,3 +52,8 @@ if you need not some special extends.
 
 * Remove implementation of Iterable for IInputObject's (you can use [StandardIInputObjectIterator](src/main/kotlin/com/github/insanusmokrassar/IObjectK/realisations/StandardIInputObjectIterator.kt)
 or [IInputObject#iterator](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/IInputObject.kt#L15))
+
+## 1.9.1
+
+* Added [CommonIObject<String, in Any>#remap](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/CommonIObject.kt#113)
+* Added [CommonIObject<String, in Any>#toJsonString](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/CommonIObject.kt#168)
