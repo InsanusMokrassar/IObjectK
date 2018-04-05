@@ -1,8 +1,8 @@
 {
   "key0": "zero/one",
   "key1": [
-    "one",
-    "one"
+    "one/two",
+    "one/three"
   ],
   "key2": {
     "zero": "three/one",

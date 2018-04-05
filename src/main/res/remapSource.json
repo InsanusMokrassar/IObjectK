@@ -1,7 +1,7 @@
 {
   "one": {
     "one": true,
-    "two": false
+    "three": false
   },
   "two": {
     "one": [
