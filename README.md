@@ -25,6 +25,7 @@ Optionally, you can replace version by one of next:
 * 1.8
 * 1.9
     * 1.9.1
+    * 1.9.2
 
 ## What for?
 This repository was created for give an opportunity to simplify using objects such as:

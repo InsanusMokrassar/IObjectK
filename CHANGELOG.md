@@ -57,3 +57,8 @@ or [IInputObject#iterator](src/main/kotlin/com/github/insanusmokrassar/IObjectK/
 
 * Added [CommonIObject<String, in Any>#remap](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/CommonIObject.kt#113)
 * Added [CommonIObject<String, in Any>#toJsonString](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/CommonIObject.kt#168)
+
+## 1.9.2
+
+* Added in previous update [CommonIObject<String, in Any>#remap](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/CommonIObject.kt#113)
+change logic of handling of arrays: now arrays represent multiple variants of paths
