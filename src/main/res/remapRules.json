@@ -1,0 +1,11 @@
+{
+  "key0": "zero/one",
+  "key1": [
+    "one",
+    "one"
+  ],
+  "key2": {
+    "zero": "three/one",
+    "one": "three/two"
+  }
+}

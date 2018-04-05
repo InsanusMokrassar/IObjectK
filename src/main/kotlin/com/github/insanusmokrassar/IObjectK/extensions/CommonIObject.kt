@@ -2,6 +2,10 @@ package com.github.insanusmokrassar.IObjectK.extensions
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject
+import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
+import com.github.insanusmokrassar.IObjectK.interfaces.IObject
+import com.github.insanusmokrassar.IObjectK.realisations.SimpleIObject
+import java.util.logging.Logger
 
 /**
  * Creating mutable map to CommonIObject
@@ -76,3 +80,100 @@ private class CommonIObjectEntry<K, V>(
         return old
     }
 }
+
+
+private fun CommonIObject<String, in Any>.remap(
+        key: String,
+        sourceIObject: IObject<Any>,
+        destObject: CommonIObject<String, Any>
+) {
+    val rule = get<String>(key)// "keyToPut": "path/to/get/field"
+    val value = rule.split(delimiter).let {
+        try {
+            sourceIObject.get(it)
+        } catch (e: ReadException) { // object by key in source object was not found
+            return
+        } catch (e: IndexOutOfBoundsException) { // object by key in array of source object was not found
+            return
+        }
+    }
+    destObject[key] = value
+}
+
+/**
+ * [this] - remap rules in next format:
+ * <pre>
+ *     {
+ *          "key": "target/source/key/to/get/value",
+ *          "key1": ["target","source","key","to","get","value"],
+ *          "key2": rules map which keys will be used as "key2/ruleKey"
+ *     }
+ * </pre>
+ */
+fun CommonIObject<String, in Any>.remap(
+        sourceObject: IObject<Any>,
+        destObject: CommonIObject<String, Any>
+) {
+    keys().forEach {
+        key ->
+        try {
+            remap(
+                    key,
+                    sourceObject,
+                    destObject
+            )
+        } catch (e: ReadException) {
+            try {
+                val childRules = get<IObject<Any>>(key)
+                try {
+                    destObject.get<IObject<Any>>(key)
+                } catch (e: ReadException) {
+                    SimpleIObject().also {
+                        destObject[key] = it
+                    }
+                }.let {
+                    childDest ->
+                    childRules.remap(sourceObject, childDest)
+                }
+            } catch (e: ReadException) {
+                try {
+                    val rules = get<List<String>>(key)// think that it is array of keys in source object
+                    remap(
+                            rules.joinToString(delimiter),
+                            sourceObject,
+                            destObject
+                    )
+                } catch (e: ReadException) {
+                    Logger.getGlobal().warning("Can't remap key $key of $this")
+                }
+            }
+        }
+    }
+}
+
+private fun Iterable<*>.toJsonString(): String {
+    return joinToString(",", "[", "]") {
+        it ?.let {
+            when (it) {
+                is IInputObject<*, *> -> (it as? IInputObject<String, in Any>) ?. toJsonString() ?: it.toString()
+                is Iterable<*> -> it.toJsonString()
+                is Number -> it.toString()
+                is Boolean -> it.toString()
+                else -> "\"$it\""
+            }
+        } ?: "null"
+    }
+}
+
+fun IInputObject<String, in Any>.toJsonString(): String {
+    return keys().joinToString(",", "{", "}") {
+        val value = get<Any>(it)
+        val valueString = when(value) {
+            is IInputObject<*, *> -> (value as? IInputObject<String, in Any>) ?. toJsonString() ?: value.toString()
+            is Iterable<*> -> value.toJsonString()
+            else -> "\"$value\""
+        }
+        "\"$it\":$valueString"
+    }
+}
+
