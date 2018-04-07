@@ -66,3 +66,7 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 ## 1.10
 
 * All extensions of `IObject<Any>` was replaced and resigned into `CommonIObject<String, Any>`.
+
+## 1.10.1
+
+* Completely fixed `remap` extension

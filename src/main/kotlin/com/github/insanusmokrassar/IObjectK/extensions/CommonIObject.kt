@@ -89,6 +89,19 @@ private fun CommonIObject<String, in Any>.remap(
 ): Boolean {
     return try {
         val rule = get<String>(key)// "keyToPut": "path/to/get/field"
+        remapByValue(key, rule, sourceIObject, destObject)
+    } catch (e: Exception) {
+        false
+    }
+}
+
+private fun CommonIObject<String, in Any>.remapByValue(
+        key: String,
+        rule: String,
+        sourceIObject: CommonIObject<String, Any>,
+        destObject: CommonIObject<String, Any>
+): Boolean {
+    return try {
         rule.split(delimiter).let {
             destObject[key] = sourceIObject.get(it)
         }
@@ -114,18 +127,12 @@ fun CommonIObject<String, in Any>.remap(
 ) {
     keys().forEach {
         key ->
-        try {
-            remap(
-                    key,
-                    sourceObject,
-                    destObject
-            )
-        } catch (e: ReadException) {
+        if (!remap(key, sourceObject, destObject)) {
             try {
                 val childRules = get<IObject<Any>>(key)
                 try {
                     destObject.get<IObject<Any>>(key)
-                } catch (e: ReadException) {
+                } catch (e: Exception) {
                     SimpleIObject().also {
                         destObject[key] = it
                     }
@@ -133,23 +140,20 @@ fun CommonIObject<String, in Any>.remap(
                     childDest ->
                     childRules.remap(sourceObject, childDest)
                 }
-            } catch (e: ReadException) {
-                try {
-                    val rules = get<List<String>>(key)// think that it is array of keys in source object
-                    val iterator = rules.iterator()
-                    while (iterator.hasNext()) {
-                        val ruleKey = iterator.next()
-                        val remapResult: Boolean = remap(
-                                ruleKey,
-                                sourceObject,
-                                destObject
-                        )
-                        if (remapResult) {
-                            return
-                        }
+            } catch (e: Exception) {
+                val rules = get<List<String>>(key)// think that it is array of keys in source object
+                val iterator = rules.iterator()
+                while (iterator.hasNext()) {
+                    val rule = iterator.next()
+                    val remapResult: Boolean = remapByValue(
+                            key,
+                            rule,
+                            sourceObject,
+                            destObject
+                    )
+                    if (remapResult) {
+                        break
                     }
-                } catch (e: ReadException) {
-                    Logger.getGlobal().warning("Can't remap key $key of $this")
                 }
             }
         }

@@ -38,7 +38,8 @@ Available versions:
 * 1.9
     * 1.9.1
     * 1.9.2
-* 1.10
+* 1.10 - Not recommended
+    * 1.10.1
 
 ## What for?
 This repository was created for give an opportunity to simplify using objects such as:
