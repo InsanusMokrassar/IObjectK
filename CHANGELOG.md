@@ -62,3 +62,7 @@ or [IInputObject#iterator](src/main/kotlin/com/github/insanusmokrassar/IObjectK/
 
 * Added in previous update [CommonIObject<String, in Any>#remap](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/CommonIObject.kt#113)
 change logic of handling of arrays: now arrays represent multiple variants of paths
+
+## 1.10
+
+* All extensions of `IObject<Any>` was replaced and resigned into `CommonIObject<String, Any>`.

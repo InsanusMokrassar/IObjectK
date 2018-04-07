@@ -84,19 +84,17 @@ private class CommonIObjectEntry<K, V>(
 
 private fun CommonIObject<String, in Any>.remap(
         key: String,
-        sourceIObject: IObject<Any>,
+        sourceIObject: CommonIObject<String, Any>,
         destObject: CommonIObject<String, Any>
 ): Boolean {
-    val rule = get<String>(key)// "keyToPut": "path/to/get/field"
-    rule.split(delimiter).let {
-        return try {
+    return try {
+        val rule = get<String>(key)// "keyToPut": "path/to/get/field"
+        rule.split(delimiter).let {
             destObject[key] = sourceIObject.get(it)
-            true
-        } catch (e: ReadException) { // object by key in source object was not found
-            false
-        } catch (e: IndexOutOfBoundsException) { // object by key in array of source object was not found
-            false
         }
+        true
+    } catch (e: Exception) {
+        false
     }
 }
 
@@ -111,7 +109,7 @@ private fun CommonIObject<String, in Any>.remap(
  * </pre>
  */
 fun CommonIObject<String, in Any>.remap(
-        sourceObject: IObject<Any>,
+        sourceObject: CommonIObject<String, Any>,
         destObject: CommonIObject<String, Any>
 ) {
     keys().forEach {
@@ -184,3 +182,66 @@ fun IInputObject<String, in Any>.toJsonString(): String {
     }
 }
 
+val delimiter = "/"
+
+
+val lastIdentifier = "last"
+
+fun String.toPath(): List<String> {
+    return this.split(delimiter).filter { it.isNotEmpty() }
+}
+
+fun CommonIObject<String, in Any>.put(path: List<String>, value: Any) {
+    var currentParent: Any = this
+    path.forEach {
+        if (path.last() == it) {
+            when (currentParent) {
+                is List<*> -> {
+                    (currentParent as? MutableList<Any>)?.let {
+                        currentParent ->
+                        if (it == lastIdentifier) {
+                            currentParent.add(value)
+                        } else {
+                            currentParent.add(it.toInt(), value)
+                        }
+                    }
+                }
+                else -> (currentParent as IObject<Any>)[it]=value
+            }
+        } else {
+            currentParent = when (currentParent) {
+                is List<*> -> (currentParent as List<*>)[it.toInt()]!!
+                else -> (currentParent as IObject<Any>)[it]
+            }
+        }
+    }
+}
+
+fun CommonIObject<String, in Any>.get(path: List<String>): Any {
+    var current: Any = this
+    path.forEach {
+        current = when (current) {
+            is List<*> -> (current as List<*>)[it.toInt()]!!
+            else -> (current as IObject<Any>)[it]
+        }
+    }
+    return current
+}
+
+fun CommonIObject<String, in Any>.cut(path: List<String>): Any {
+    var current: Any = this
+    path.forEach {
+        val parent = current
+        current = when (current) {
+            is List<*> -> (current as List<*>)[it.toInt()]!!
+            else -> (current as IObject<Any>)[it]
+        }
+        if (path.last() == it) {
+            when (parent) {
+                is MutableList<*> -> (parent as MutableList<Any>).remove(it.toInt())
+                else -> (parent as IObject<Any>).remove(it)
+            }
+        }
+    }
+    return current
+}
