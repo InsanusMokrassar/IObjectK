@@ -69,4 +69,8 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 
 ## 1.10.1
 
-* Completely fixed `remap` extension
+* Fixes in `remap` extension
+
+## 1.10.2
+
+* Fixes in `remap` extension (fix case when fied is absent for remap)
