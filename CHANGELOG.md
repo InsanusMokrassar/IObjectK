@@ -78,3 +78,7 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 ## 1.10.3
 
 * Add [IObject<Any>#doRecursively](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/IObject.kt)
+
+## 1.10.4
+
+* Fixes in toJsonString method
