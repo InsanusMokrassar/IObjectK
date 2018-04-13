@@ -183,7 +183,7 @@ private fun Iterable<*>.toJsonString(): String {
                 is Iterable<*> -> it.toJsonString()
                 is Number -> it.toString()
                 is Boolean -> it.toString()
-                else -> "\"$it\""
+                else -> "\"${it.toString().replace("\"", "\\\"")}\""
             }
         } ?: "null"
     }
@@ -195,9 +195,9 @@ fun IInputObject<String, in Any>.toJsonString(): String {
         val valueString = when(value) {
             is IInputObject<*, *> -> (value as? IInputObject<String, in Any>) ?. toJsonString() ?: value.toString()
             is Iterable<*> -> value.toJsonString()
-            else -> "\"$value\""
+            else -> "\"${value.toString().replace("\"", "\\\"")}\""
         }
-        "\"$it\":$valueString"
+        "\"${it.replace("\"", "\\\"")}\":$valueString"
     }
 }
 
