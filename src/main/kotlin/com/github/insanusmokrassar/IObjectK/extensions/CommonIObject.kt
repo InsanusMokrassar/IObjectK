@@ -4,6 +4,7 @@ import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject
 import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
 import com.github.insanusmokrassar.IObjectK.interfaces.IObject
+import com.github.insanusmokrassar.IObjectK.interfaces.IOutputObject
 import com.github.insanusmokrassar.IObjectK.realisations.SimpleIObject
 import java.util.logging.Logger
 
@@ -210,7 +211,7 @@ fun String.toPath(): List<String> {
     return this.split(delimiter).filter { it.isNotEmpty() }
 }
 
-fun CommonIObject<String, in Any>.put(path: List<String>, value: Any) {
+fun <T> CommonIObject<T, in Any>.put(path: List<T>, value: Any) {
     var currentParent: Any = this
     path.forEach {
         if (path.last() == it) {
@@ -221,46 +222,51 @@ fun CommonIObject<String, in Any>.put(path: List<String>, value: Any) {
                         if (it == lastIdentifier) {
                             currentParent.add(value)
                         } else {
-                            currentParent.add(it.toInt(), value)
+                            currentParent.add(it.toString().toInt(), value)
                         }
                     }
                 }
-                else -> (currentParent as IObject<Any>)[it]=value
+                is IInputObject<*, *> -> (currentParent as IOutputObject<T, Any>)[it] = value
+                else -> throw IllegalStateException("Can't get value by key: $it; It is not list or IOutputObject")
             }
         } else {
             currentParent = when (currentParent) {
-                is List<*> -> (currentParent as List<*>)[it.toInt()]!!
-                else -> (currentParent as IObject<Any>)[it]
+                is List<*> -> (currentParent as List<*>)[it.toString().toInt()]!!
+                is IInputObject<*, *> -> (currentParent as CommonIObject<T, Any>)[it]
+                else -> throw IllegalStateException("Can't get value by key: $it; It is not list or CommonIObject")
             }
         }
     }
 }
 
-fun CommonIObject<String, in Any>.get(path: List<String>): Any {
+fun <T, R: Any> IInputObject<T, in Any>.get(path: List<T>): R {
     var current: Any = this
     path.forEach {
         current = when (current) {
-            is List<*> -> (current as List<*>)[it.toInt()]!!
-            else -> (current as IObject<Any>)[it]
+            is List<*> -> (current as List<*>)[it.toString().toInt()]!!
+            is IInputObject<*, *> -> (current as IInputObject<T, Any>)[it]
+            else -> throw IllegalStateException("Can't get value by key: $it; It is not list or CommonIObject")
         }
     }
-    return current
+    return current as R
 }
 
-fun CommonIObject<String, in Any>.cut(path: List<String>): Any {
+fun <T, R: Any> CommonIObject<T, in Any>.cut(path: List<T>): R {
     var current: Any = this
     path.forEach {
         val parent = current
         current = when (current) {
-            is List<*> -> (current as List<*>)[it.toInt()]!!
-            else -> (current as IObject<Any>)[it]
+            is List<*> -> (current as List<*>)[it.toString().toInt()]!!
+            is CommonIObject<*, *> -> (current as CommonIObject<T, Any>)[it]
+            else -> throw IllegalStateException("Can't get value by key: $it; It is not list or CommonIObject")
         }
         if (path.last() == it) {
             when (parent) {
-                is MutableList<*> -> (parent as MutableList<Any>).remove(it.toInt())
-                else -> (parent as IObject<Any>).remove(it)
+                is MutableList<*> -> (parent as MutableList<Any>).remove(it.toString().toInt())
+                is CommonIObject<*, *> -> (parent as CommonIObject<T, Any>).remove(it)
+                else -> throw IllegalStateException("Can't get value by key: $it; It is not list or CommonIObject")
             }
         }
     }
-    return current
+    return current as R
 }
