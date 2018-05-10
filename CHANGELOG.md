@@ -86,3 +86,8 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 ## 1.10.5
 
 * Fixes in get/put/cut methods to be available to work with CommonIObjects and other low-level interfaces
+
+## 1.10.6
+
+* Add `IInputObject#duplicate`
+([IInputObject extensions](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/IInputObject.kt)) operation
