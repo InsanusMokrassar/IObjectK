@@ -1,9 +1,8 @@
 package com.github.insanusmokrassar.IObjectK.extensions
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
-import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
-import com.github.insanusmokrassar.IObjectK.interfaces.has
-import com.github.insanusmokrassar.IObjectK.realisations.StandardIInputObjectIterator
+import com.github.insanusmokrassar.IObjectK.interfaces.*
+import com.github.insanusmokrassar.IObjectK.realisations.*
 
 /**
  * Creating map to IInputObject
@@ -14,6 +13,42 @@ fun <K, V> IInputObject<K, V>.asMap(): Map<K, V> {
 
 fun <K, V> IInputObject<K, V>.iterator(): Iterator<Pair<K, V>> {
     return StandardIInputObjectIterator(this)
+}
+
+private fun <V> List<V>.duplicate(): List<V> {
+    return ArrayList<V>().also {
+        newList ->
+        forEach {
+            value ->
+            when(value) {
+                is List<*> -> ((value as? List<V>) ?. duplicate() as? V)
+                is IInputObject<*, *> -> (value.duplicate() as? V)
+                else -> value // don't know how to copy
+            } ?.let {
+                newList.add(it)
+            }
+        }
+    }
+}
+
+/**
+ * Safe recursive copy all data from IInputObject to new object
+ */
+fun <K, V> IInputObject<K, V>.duplicate(): CommonIObject<K, V> {
+    return SimpleCommonIObject<K, V>().also {
+        newObject ->
+        iterator().forEach {
+            val value = it.second
+            when(value) {
+                is List<*> -> ((value as? List<V>) ?. duplicate() as? V)
+                is IInputObject<*, *> -> (value.duplicate() as? V)
+                else -> value // don't know how to copy
+            } ?.let {
+                copiedValue ->
+                newObject[it.first] = copiedValue
+            }
+        }
+    }
 }
 
 /**
