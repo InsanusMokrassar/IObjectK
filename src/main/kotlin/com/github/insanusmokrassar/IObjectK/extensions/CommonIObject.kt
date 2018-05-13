@@ -1,10 +1,7 @@
 package com.github.insanusmokrassar.IObjectK.extensions
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
-import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject
-import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
-import com.github.insanusmokrassar.IObjectK.interfaces.IObject
-import com.github.insanusmokrassar.IObjectK.interfaces.IOutputObject
+import com.github.insanusmokrassar.IObjectK.interfaces.*
 import com.github.insanusmokrassar.IObjectK.realisations.SimpleIObject
 import java.util.logging.Logger
 

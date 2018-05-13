@@ -2,7 +2,7 @@ package com.github.insanusmokrassar.IObjectK.extensions
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 import com.github.insanusmokrassar.IObjectK.interfaces.*
-import com.github.insanusmokrassar.IObjectK.realisations.*
+import com.github.insanusmokrassar.IObjectK.realisations.SimpleCommonIObject
 
 /**
  * Creating map to IInputObject

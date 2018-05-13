@@ -1,9 +1,6 @@
 package com.github.insanusmokrassar.IObjectK.utils
 
-import com.github.insanusmokrassar.IObjectK.extensions.iterator
-import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject
-import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
-import com.github.insanusmokrassar.IObjectK.interfaces.has
+import com.github.insanusmokrassar.IObjectK.interfaces.*
 import com.github.insanusmokrassar.IObjectK.realisations.SimpleCommonIObject
 
 /**

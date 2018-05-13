@@ -4,7 +4,7 @@ import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 import com.github.insanusmokrassar.IObjectK.exceptions.WriteException
 import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject
 import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
-import java.util.HashMap
+import java.util.*
 
 open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
     protected val objects: MutableMap<K, V>
