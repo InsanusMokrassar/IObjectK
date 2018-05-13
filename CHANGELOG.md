@@ -91,3 +91,10 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 
 * Add `IInputObject#duplicate`
 ([IInputObject extensions](src/main/kotlin/com/github/insanusmokrassar/IObjectK/extensions/IInputObject.kt)) operation
+
+## 1.11
+
+* Replace `IInputObject#iterator` extension into [IInputObject interface](src/main/kotlin/com/github/insanusmokrassar/IObjectK/interfaces/IInputObject.kt)
+* Remove deprecated `IOutputObject#put` fun and `IInputObject#contain`
+* Fix handling get/set objects in `SimpleCommonIObject`. Now if was found any error will be thrown `ReadException`/`WriteException`
+
