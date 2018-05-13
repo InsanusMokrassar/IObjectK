@@ -190,15 +190,15 @@ private fun Iterable<*>.toJsonString(): String {
 /**
  * Convert [IInputObject] to JSON formatted [String]
  */
-fun IInputObject<String, in Any>.toJsonString(): String {
+fun <K, V> IInputObject<K, V>.toJsonString(): String {
     return keys().joinToString(",", "{", "}") {
-        val value = get<Any>(it)
+        val value = get<V>(it)
         val valueString = when(value) {
-            is IInputObject<*, *> -> (value as? IInputObject<String, in Any>) ?. toJsonString() ?: value.toString()
+            is IInputObject<*, *> -> value.toJsonString()
             is Iterable<*> -> value.toJsonString()
             else -> "\"${value.toString().replace("\"", "\\\"")}\""
         }
-        "\"${it.replace("\"", "\\\"")}\":$valueString"
+        "\"${it.toString().replace("\"", "\\\"")}\":$valueString"
     }
 }
 

@@ -1,6 +1,7 @@
 package com.github.insanusmokrassar.IObjectK
 
 import com.github.insanusmokrassar.IObjectK.extensions.duplicate
+import com.github.insanusmokrassar.IObjectK.extensions.toJsonString
 import com.github.insanusmokrassar.IObjectK.realisations.SimpleIObject
 
 fun main(args: Array<String>) {
@@ -10,10 +11,10 @@ fun main(args: Array<String>) {
         println(this.apply {
             println(hashCode())
             println(get<Any>("example1").hashCode())
-        })
+        }.toJsonString())
         println(this.duplicate().apply {
             println(hashCode())
             println(get<Any>("example1").hashCode())
-        })
+        }.toJsonString())
     }
 }
