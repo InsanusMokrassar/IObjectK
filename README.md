@@ -8,20 +8,20 @@
 <dependency>
     <groupId>com.github.insanusmokrassar</groupId>
     <artifactId>IObjectK</artifactId>
-    <version>1.11</version>
+    <version>1.11.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```
-implementation 'com.github.insanusmokrassar:IObjectK:1.11'
+implementation 'com.github.insanusmokrassar:IObjectK:1.11.1'
 ```
 
 ### Old Gradle
 
 ```
-compile 'com.github.insanusmokrassar:IObjectK:1.11'
+compile 'com.github.insanusmokrassar:IObjectK:1.11.1'
 ```
 
 ### Versions
@@ -46,6 +46,7 @@ Available versions:
     * 1.10.5
     * 1.10.6
 * 1.11
+    * 1.11.1
 
 ## What for?
 This repository was created for give an opportunity to simplify using objects such as:

@@ -98,3 +98,6 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 * Remove deprecated `IOutputObject#put` fun and `IInputObject#contain`
 * Fix handling get/set objects in `SimpleCommonIObject`. Now if was found any error will be thrown `ReadException`/`WriteException`
 
+# 1.11.1
+
+* Extend 
