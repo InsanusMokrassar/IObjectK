@@ -11,6 +11,9 @@ fun <K, V> IInputObject<K, V>.asMap(): Map<K, V> {
     return IInputObjectMap(this)
 }
 
+/**
+ * Return [Iterator] object which can be used for forEach, for example
+ */
 fun <K, V> IInputObject<K, V>.iterator(): Iterator<Pair<K, V>> {
     return StandardIInputObjectIterator(this)
 }

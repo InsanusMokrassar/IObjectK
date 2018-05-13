@@ -47,13 +47,13 @@ internal class CommonIObjectMap<K, V>(
         } catch (e: ReadException) {
             null
         }
-        source.put(key, value)
+        source[key] = value
         return old
     }
 
     override fun putAll(from: Map<out K, V>) {
         from.forEach {
-            source.put(it.key, it.value)
+            source[it.key] = it.value
         }
     }
 
@@ -73,11 +73,11 @@ private class CommonIObjectEntry<K, V>(
         private val source: CommonIObject<K, V>
 ) : MutableMap.MutableEntry<K, V> {
     override val value: V
-        get() = source.get(key) ?: throw IllegalStateException("Value is absent")
+        get() = source[key] ?: throw IllegalStateException("Value is absent")
 
     override fun setValue(newValue: V): V {
         val old = source.get<V>(key)
-        source.put(key, newValue)
+        source[key] = newValue
         return old
     }
 }
@@ -98,14 +98,14 @@ private fun CommonIObject<String, in Any>.remap(
     }
 }
 
-private fun CommonIObject<String, in Any>.remapByValue(
+private fun remapByValue(
         key: String,
         rule: String,
         sourceIObject: CommonIObject<String, Any>,
         destObject: CommonIObject<String, Any>
 ): Boolean {
     return try {
-        rule.split(delimiter).let {
+        rule.toPath().let {
             destObject[key] = sourceIObject.get(it)
         }
         true
@@ -190,6 +190,9 @@ private fun Iterable<*>.toJsonString(): String {
     }
 }
 
+/**
+ * Convert [IInputObject] to JSON formatted [String]
+ */
 fun IInputObject<String, in Any>.toJsonString(): String {
     return keys().joinToString(",", "{", "}") {
         val value = get<Any>(it)
@@ -202,15 +205,21 @@ fun IInputObject<String, in Any>.toJsonString(): String {
     }
 }
 
-val delimiter = "/"
+private const val delimiter = "/"
 
 
-val lastIdentifier = "last"
+private const val lastIdentifier = "last"
 
+/**
+ * Convert receiver to path which can be used in operations with iterable keys
+ */
 fun String.toPath(): List<String> {
     return this.split(delimiter).filter { it.isNotEmpty() }
 }
 
+/**
+ * Put [value] by [path] into object. In path identifiers as "0" can be used to choose object/array in array or to put in specified position
+ */
 fun <T> CommonIObject<T, in Any>.put(path: List<T>, value: Any) {
     var currentParent: Any = this
     path.forEach {
@@ -239,6 +248,9 @@ fun <T> CommonIObject<T, in Any>.put(path: List<T>, value: Any) {
     }
 }
 
+/**
+ * Get value by [path] in object. In path identifiers as "0" can be used to choose object/array in array
+ */
 fun <T, R: Any> IInputObject<T, in Any>.get(path: List<T>): R {
     var current: Any = this
     path.forEach {
@@ -251,6 +263,9 @@ fun <T, R: Any> IInputObject<T, in Any>.get(path: List<T>): R {
     return current as R
 }
 
+/**
+ * Cut value by [path] in object. In path identifiers as "0" can be used to choose object/array in array
+ */
 fun <T, R: Any> CommonIObject<T, in Any>.cut(path: List<T>): R {
     var current: Any = this
     path.forEach {

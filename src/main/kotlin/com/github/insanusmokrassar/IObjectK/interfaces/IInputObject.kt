@@ -24,6 +24,9 @@ interface IInputObject<K, V> {
     fun keys() : Set<K>
 }
 
+/**
+ * @return true if this objectcontains this key
+ */
 fun <K, V> IInputObject<K, V>.has(key: K): Boolean {
     return keys().contains(key)
 }
