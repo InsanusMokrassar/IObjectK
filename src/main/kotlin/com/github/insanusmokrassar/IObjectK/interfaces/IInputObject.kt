@@ -1,12 +1,11 @@
 package com.github.insanusmokrassar.IObjectK.interfaces
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
-import com.github.insanusmokrassar.IObjectK.utils.contains
+import com.github.insanusmokrassar.IObjectK.realisations.StandardIInputObjectIterator
 
-interface IInputObject<K, V> {
-
+interface IInputObject<K, V> : Iterable<Pair<K, V>>{
     /**
-     * Return sum of records on object
+     * Sum of records on object
      */
     val size: Int
         get() = keys().size
@@ -22,6 +21,13 @@ interface IInputObject<K, V> {
      * @return Set of the keys. Can't be null but can be empty
      */
     fun keys() : Set<K>
+
+    /**
+     * Return [Iterator] object which can be used for forEach, for example
+     */
+    override fun iterator(): Iterator<Pair<K, V>> {
+        return StandardIInputObjectIterator(this)
+    }
 }
 
 /**
@@ -30,7 +36,3 @@ interface IInputObject<K, V> {
 fun <K, V> IInputObject<K, V>.has(key: K): Boolean {
     return keys().contains(key)
 }
-
-@Deprecated("This method was replaced and will be remover in near versions", ReplaceWith("contains"))
-fun <K, V> IInputObject<K, V>.contain(other: IInputObject<K, V>): Boolean = contains(other)
-

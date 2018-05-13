@@ -35,15 +35,23 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
 
     @Throws(WriteException::class)
     override fun putAll(toPutMap: Map<K, V>) {
-        toPutMap.forEach {
-            set(it.key, it.value)
+        try {
+            toPutMap.forEach {
+                set(it.key, it.value)
+            }
+        } catch (e: Exception) {
+            throw ReadException("Can't return value - value from key - is null", e)
         }
     }
 
     @Throws(ReadException::class)
     override fun <T : V> get(key: K): T {
         val toReturn = objects[key] ?: throw ReadException("Can't return value - value from key($key) - is null")
-        return toReturn as T
+        try {
+            return toReturn as T
+        } catch (e: Exception) {
+            throw ReadException("Can't return value - value from key($key) - is null", e)
+        }
     }
 
     @Throws(WriteException::class)
