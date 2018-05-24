@@ -18,7 +18,7 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
 
     constructor(from: IInputObject<K, V>) : this() {
         for (key in from.keys()) {
-            objects[key] = from.get(key)
+            objects[key] = from[key]
         }
     }
 
@@ -62,6 +62,4 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
     }
 
     override fun keys(): Set<K> = objects.keys
-
-    override fun toString(): String = objects.toString()
 }

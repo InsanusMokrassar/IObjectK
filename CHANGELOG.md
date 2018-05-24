@@ -101,3 +101,7 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 # 1.11.1
 
 * Extension `IInputObject#toJsonString`
+
+# 1.11.2
+
+* Fix of `SimpleCommonIObject#toString` - now will be used `IInputString#toJsonString`
