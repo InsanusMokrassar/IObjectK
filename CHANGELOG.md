@@ -101,6 +101,7 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 # 1.11.1
 
 * Extension `IInputObject#toJsonString`
+* `IInputObject#toString` by default will return `IInputObject#toJsonString`
 
 # 1.11.2
 
