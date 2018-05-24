@@ -100,4 +100,4 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 
 # 1.11.1
 
-* Extend 
+* Extension `IInputObject#toJsonString`
