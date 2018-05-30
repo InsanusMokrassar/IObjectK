@@ -98,11 +98,15 @@ change logic of handling of arrays: now arrays represent multiple variants of pa
 * Remove deprecated `IOutputObject#put` fun and `IInputObject#contain`
 * Fix handling get/set objects in `SimpleCommonIObject`. Now if was found any error will be thrown `ReadException`/`WriteException`
 
-# 1.11.1
+## 1.11.1
 
 * Extension `IInputObject#toJsonString`
 * `IInputObject#toString` by default will return `IInputObject#toJsonString`
 
-# 1.11.2
+## 1.11.2
 
 * Fix of `SimpleCommonIObject#toString` - now will be used `IInputString#toJsonString`
+
+## 1.11.3
+
+* Add default realisation for `SimpleCommonIObject#toString`

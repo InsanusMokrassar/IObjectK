@@ -2,6 +2,7 @@ package com.github.insanusmokrassar.IObjectK.realisations
 
 import com.github.insanusmokrassar.IObjectK.exceptions.ReadException
 import com.github.insanusmokrassar.IObjectK.exceptions.WriteException
+import com.github.insanusmokrassar.IObjectK.extensions.toJsonString
 import com.github.insanusmokrassar.IObjectK.interfaces.CommonIObject
 import com.github.insanusmokrassar.IObjectK.interfaces.IInputObject
 import java.util.*
@@ -62,4 +63,6 @@ open class SimpleCommonIObject <K, V> : CommonIObject<K, V> {
     }
 
     override fun keys(): Set<K> = objects.keys
+
+    override fun toString(): String = toJsonString()
 }
