@@ -118,6 +118,7 @@
                     <sourceDirectories>
                         <dir>${project.build.sourceDirectory}</dir>
                     </sourceDirectories>
+                    <cacheRoot>default</cacheRoot>
                 </configuration>
             </plugin>
             <plugin>
